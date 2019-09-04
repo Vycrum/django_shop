@@ -1,0 +1,268 @@
+body {
+    background-color: #f8f8f8;
+}
+
+.container {
+    width: 80%;
+    margin: 0 auto;
+}
+
+.header {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    padding: 10px 0;
+    border-bottom: 2px solid #adadad;
+    background: url('/static/img/header2.jpg');
+/*    background-size: 100%;*/
+}
+
+#logo {
+    width: 100px;
+    height: 50px;
+    float: left;
+    margin-left: 20px;
+    background: url('../img/logo.jpg') no-repeat;
+    background-size: contain;
+}
+
+#companyName {
+    text-align: right;
+    font-family: Huntsman, sans-serif;
+    float: left;
+    margin-left: 15px;
+    font-size: 1.3em;
+    line-height: 50px;
+    color: black;
+}
+
+#navigation {
+    height: 50px;
+    float: right;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.menu li,
+.catalog li {
+    font-style: oblique;
+    font-size: 20px;
+    list-style-type: none;
+    /*    border: 1px solid black;*/
+    padding: 5px;
+}
+
+.menu li a,
+.catalog li a {
+    color: #380d02;
+    text-decoration: none;
+}
+
+.menu li,
+.catalog li {
+    display: inline;
+}
+
+.menu li a:hover,
+.catalog li a:hover {
+    color: #1896FF;
+}
+
+.menu li a:active {
+    color: red;
+}
+
+.content {
+    position: relative;
+}
+
+#catalog_nav {
+    width: 100%;
+    height: 50px;
+    float: left;
+    align-items: center;
+    border-bottom: 2px solid #adadad;
+    background: url('../img/header2.jpg');
+}
+
+.product_info {
+    position: relative;
+    clear: both;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+#product_face {
+    width: 400px;
+    position: relative;
+    clear: both;
+    padding-top: 1px;
+    float: left;
+}
+
+.product_description {
+    float: left;
+    width: 500px;
+    margin-left: 20px;
+}
+
+.product_description a {
+    font-size: 20px;
+    color: #380d02;
+    padding: 3px;
+    text-decoration: none;
+    border: 1px solid grey;
+/*    border-style: dotted;*/
+    border-radius: 10px;
+}
+
+.product_description a:hover {
+    color: #1896FF
+}
+
+.product_description a:active {
+    color: red;
+}
+
+.content h3 {
+    overflow: hidden;
+    color: black;
+    font: 18px;
+    font-weight: 400;
+    background-color: #eaeaea;
+}
+
+.short_description {
+    color: #707070;
+    font: 14px italic;
+    line-height: 16px;
+}
+
+.product_features {
+    clear: both;
+    padding-top: 5px;
+}
+
+.full_description p {
+    color: #484343;
+    font: 16px;
+    font-weight: 400;
+    line-height: 24px;
+    text-align: left;
+}
+
+.full_description p:first-letter {
+    font-size: 30px;
+    color: brown;
+}
+
+.features li {
+    color: #7f0b0b;
+    font-size: 22px;
+    line-height: 26px;
+    list-style-position: inside;
+    list-style-image: url(../img/list_dots.png)
+}
+
+input[type="text"] {
+    height: 20px;
+    width: 230px;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: darkslategray;
+    font-size: 14px italic;
+}
+
+.products_list {
+    min-height: 200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 0;
+}
+
+.products_list .item {
+    display: block;
+    float: left;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 0 20px;
+}
+
+.products_list a {
+    font-style: oblique;
+    font-size: 20px;
+    list-style-type: none;
+}
+
+.products_list img {
+    height: 130px;
+    width: 200px;
+}
+
+.product_image {
+    outline: 3px solid #380d02;
+}
+
+.product_image:hover {
+    outline: none;
+}
+
+.footer {
+    height: 30px;
+    position: relative;
+    border-top: 2px solid #adadad;
+    margin-top: 10px;
+    padding-right: 10px;
+    padding-top: 10px;
+    background-color: #dbdbdb;
+    background: url('../img/header2.jpg');
+}
+
+#copyright {
+    float: right;
+}
+
+input[type="text"] {
+    text-transform: capitalize;
+}
+
+input[id="email"] {
+    text-transform: none;
+}
+
+input[id="email"]:focus {
+    color: rebeccapurple;
+    background-color: lightblue;
+    border: 2px solid #555;
+    text-transform: none;
+}
+
+.composition {
+    border-collapse: collapse;
+    margin-left: 10px;
+    margin-bottom: 20px;
+}
+
+.composition th {
+    padding-left: 15px;
+    border: 1px solid #000;
+    width: 100px;
+    height: 70px;
+}
+
+.composition td {
+    padding-left: 15px;
+    border: 1px solid #000;
+    width: 100px;
+    height: 50px;
+}
+
+iframe {
+    width: 100%;
+    height: 374px;
+    
+}
