@@ -222,6 +222,11 @@ textarea::placeholder {
     background: url('../img/header2.jpg');
 }
 
+#now {
+    padding-left: 10px;
+    float: left;
+}
+
 #copyright {
     float: right;
 }
