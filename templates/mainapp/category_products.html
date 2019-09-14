@@ -1,0 +1,20 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}
+    <title>{{ category.name }}</title>
+{% endblock %}
+
+{% block content %}
+    <div class="content">
+        <h2>{{ category.name }}</h2>
+        <div class="products_list">
+        {% for product in products %}
+            <div class="item">
+                <a href="#"><img src="/media/{{ product.small_image }}" alt="{{ product.short_desc }}"><br>
+                <p>{{ product.name }}</p>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+{% endblock %}

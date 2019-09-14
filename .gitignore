@@ -1,4 +1,6 @@
 *.pyc
 .idea
-*.sqlite3
 conf/
+project_env/
+venv/
+__pycache__
