@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 # from .views import main, catalog, contacts
 from .views import CategoriesView, HomePageView, ContactsPageView, CategoryDetailView
 from django.conf.urls.static import static

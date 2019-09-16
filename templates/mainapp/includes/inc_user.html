@@ -1,0 +1,19 @@
+<div class="user_auth">
+    {% if user.is_authenticated %}
+    <li>
+        <a href="{% url 'auth:edit' %}">
+            {{ user }}
+        </a>
+    </li>
+    <li>
+        <a href="{% url 'auth:logout' %}">Log Out</a>
+    </li>
+    {% else %}
+    <li>
+        <a href="{% url 'auth:login' %}">Log In</a>
+    </li>
+    <li>
+        <a href="{% url 'auth:register' %}">Sign Up</a>
+    </li>
+    {% endif %}
+</div>
