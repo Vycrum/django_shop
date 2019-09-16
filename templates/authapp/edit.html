@@ -1,0 +1,22 @@
+{% extends 'authapp/base.html' %}
+
+{% block title %}
+    <title>Edit User</title>
+{% endblock title %}
+
+{% block content %}
+    <h2>Edit User</h2>
+    <form class="form-horizontal" action="{% url 'auth:edit' %}" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ edit_form.as_p }}
+        <input class="form-control" type="submit" value="Save">
+        <button class="btn btn-round form-control last">
+        <a href="{% url 'main' %}" class="cancel_button">Cancel</a>
+    </button>
+    </form>
+    </br>
+
+    <div class="user_avatar">
+        <img src="/media/{{ user.avatar }}">
+    </div>
+{% endblock content %}
