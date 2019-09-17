@@ -10,11 +10,11 @@ from .models import Product, ProductCategory
 class HomePageView(TemplateView):
     template_name = 'mainapp/index.html'
 
-    def get_context_data(self, *args, **kwargs):
-        context = super(HomePageView , self).get_context_data(*args, **kwargs)
-        user_login = os.getlogin()
-        context['user'] = user_login
-        return context
+    # def get_context_data(self, *args, **kwargs):
+    #     context = super(HomePageView , self).get_context_data(*args, **kwargs)
+    #     user_login = os.getlogin()
+    #     context['user'] = user_login
+    #     return context
 
 
 class ContactsPageView(TemplateView):
