@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.views.generic import ListView, TemplateView
+from django.shortcuts import get_object_or_404
 import os
 
 from .models import Product, ProductCategory
+from basketapp.models import Basket
 
 
 # Class-Based Views
@@ -36,16 +38,18 @@ class CategoryDetailView(ListView):
     def get_context_data(self, **kwargs):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
         category_id = self.kwargs.get('pk')
+        user = self.request.user
+
+        basket = []
+        if self.request.user.is_authenticated:
+            basket = Basket.objects.filter(user=user)
+            print(basket)
+
+        context['basket'] = basket
         context['category'] = ProductCategory.objects.filter(id=category_id)[0]
         context['products'] = Product.objects.filter(category_id=category_id)
         return context
 
-
-# class BookListView(generic.ListView):
-#     model = Book
-#     context_object_name = 'my_book_list'  # your own name for the list as a template variable
-#     queryset = Book.objects.filter(title__icontains='war')[:5]  # Get 5 books containing the title war
-#     template_name = 'books/my_arbitrary_template_name_list.html'  # Specify your own template name/location
 
 # Function-Based Views
 
@@ -55,11 +59,42 @@ class CategoryDetailView(ListView):
 #     return render(request, 'mainapp/index.html', context)
 
 
-# def products(request):
-#     product_items = os.listdir('./templates/mainapp/catalog/')
-#     product_items = [(os.path.splitext(item)[0], count+1) for count, item in enumerate(product_items)]
-#     context = {'products': product_items}
-#     return render(request, 'mainapp/catalog.html', context)
+# def products(request, pk=None):
+#     print(pk)
+#
+#     title = 'Products'
+#     links_menu = ProductCategory.objects.all()
+#
+#     basket = []
+#     if request.user.is_authenticated:
+#         basket = Basket.objects.filter(user=request.user)
+#
+#     if pk:
+#         if pk == 0:
+#             products = Product.objects.all().order_by('price')
+#             category = {'name': 'All'}
+#         else:
+#             category = get_object_or_404(ProductCategory, pk=pk)
+#             products = Product.objects.filter(category__pk=pk).order_by('price')
+#
+#         content = {
+#             'title': title,
+#             'links_menu': links_menu,
+#             'category': category,
+#             'products': products,
+#         }
+#
+#         return render(request, 'mainapp/products_list.html', content)
+#
+#     same_products = Product.objects.all()[3:5]
+#
+#     content = {
+#         'title': title,
+#         'links_menu': links_menu,
+#         'same_products': same_products
+#     }
+#
+#     return render(request, 'mainapp/products.html', content)
 
 
 # def contacts(request):

@@ -10,7 +10,9 @@
         <div class="products_list">
         {% for product in products %}
             <div class="item">
-                <a href="#"><img src="/media/{{ product.small_image }}" alt="{{ product.short_desc }}"><br>
+                <a href="{% url 'basket:add' product.pk %}">
+                <img src="/media/{{ product.small_image }}" alt="{{ product.short_desc }}">
+                <br>
                 <p>{{ product.name }}</p>
                 </a>
             </div>

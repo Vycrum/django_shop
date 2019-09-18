@@ -6,6 +6,17 @@
         </a>
     </li>
     <li>
+        <a href="{% url 'basket:view' %}" class="basket">
+            <span>Items:
+                {% if basket %}
+                    {{ basket|length }}
+                {% else %}
+                    0
+                {% endif %}
+            </span>
+        </a>
+    </li>
+    <li>
         <a href="{% url 'auth:logout' %}">Log Out</a>
     </li>
     {% else %}
