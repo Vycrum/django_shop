@@ -74,7 +74,8 @@ body {
 .menu li a,
 .catalog li a,
 .categories li a,
-.user_auth li a {
+.user_auth li a,
+ .basket {
     color: #380d02;
     text-decoration: none;
 }
