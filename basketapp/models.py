@@ -8,5 +8,9 @@ class Basket(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(verbose_name='количество', default=0)
     # Some bullshit
-    price = models.DecimalField(verbose_name='Price', max_digits=8, decimal_places=2, default=0)
+    # price = models.DecimalField(verbose_name='Price', max_digits=8, decimal_places=2, default=0)
     add_datetime = models.DateTimeField(verbose_name='время', auto_now_add=True)
+
+    @property
+    def cost(self):
+        return self.quantity * self.product.price

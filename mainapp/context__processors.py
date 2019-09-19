@@ -18,7 +18,7 @@ def get_basket(request):
 
         for item in basket:
             quantity += item.quantity
-            total_price += item.quantity * item.price
+            total_price += item.cost
 
         basket = {
             'quantity': quantity,
