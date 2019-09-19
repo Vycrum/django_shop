@@ -1,3 +1,3 @@
 #!/bin/bash
 
-python manage.py loaddata products.json
+python manage.py loaddata db.json

@@ -5,17 +5,16 @@
             {{ user }}
         </a>
     </li>
-    <li>
-        <a href="{% url 'basket:view' %}" class="basket">
-            <span>Items:
-                {% if basket %}
-                    {{ basket|length }}
-                {% else %}
-                    0
-                {% endif %}
-            </span>
-        </a>
-    </li>
+    {% if basket %}
+    <a href="{% url 'basket:view' %}" class="basket">
+        <li>
+            Items: {{ basket.quantity }}
+        </li>
+        <li>
+            Price: {{ basket.total_price }}
+        </li>
+    </a>
+    {% endif %}
     <li>
         <a href="{% url 'auth:logout' %}">Log Out</a>
     </li>

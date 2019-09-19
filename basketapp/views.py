@@ -14,7 +14,7 @@ def basket_add(request, pk):
     basket = Basket.objects.filter(user=request.user, product=product).first()
 
     if not basket:
-        basket = Basket(user=request.user, product=product)
+        basket = Basket(user=request.user, product=product, price=product.price)
 
     basket.quantity += 1
     basket.save()
