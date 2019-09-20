@@ -39,24 +39,24 @@ class CategoryDetailView(ListView):
         context = super(CategoryDetailView, self).get_context_data(**kwargs)
         category_id = self.kwargs.get('pk')
         user = self.request.user
-
-        basket = []
-        if self.request.user.is_authenticated:
-            basket = Basket.objects.filter(user=user)
-            quantity = 0
-            total_price = 0
-
-            for item in basket:
-                quantity += item.quantity
-                total_price += item.quantity * item.price
-
-            basket = {
-                'quantity': quantity,
-                'total_price': total_price
-            }
-        print(basket)
-
-        context['basket'] = basket
+    #
+    #     basket = []
+    #     if self.request.user.is_authenticated:
+    #         basket = Basket.objects.filter(user=user)
+    #         quantity = 0
+    #         total_price = 0
+    #
+    #         for item in basket:
+    #             quantity += item.quantity
+    #             total_price += item.quantity * item.price
+    #
+    #         basket = {
+    #             'quantity': quantity,
+    #             'total_price': total_price
+    #         }
+    #     print(basket)
+    #
+    #     context['basket'] = basket
         context['category'] = ProductCategory.objects.filter(id=category_id)[0]
         context['products'] = Product.objects.filter(category_id=category_id)
         return context
