@@ -1,0 +1,31 @@
+{% extends 'mainapp/base.html' %}
+
+{% block title %}
+    <title>{{ product.name }}</title>
+{% endblock title %}
+
+{% block content %}
+    {% include 'mainapp/includes/inc_categories_menu.html' %}
+    <h2>{{ product.name }}</h2>
+    <div class="product_info">
+        <div class="product_image">
+            <a href="#">
+              <img src="/media/{{ product.full_image }}" alt="вариант 1">
+            </a>
+        </div>
+        <div class="product_description">
+            <h3>Product Information:</h3>
+            <ul class="product_info_list">
+                <li><b>Name:</b> {{ product.name }}</li>
+                <li><b>Category:</b> {{ product.category.name }}</li>
+                <li><b>Price:</b> {{ product.price }} RUB</li>
+                <li><b>Description:</b> {{ product.full_desc }}</li>
+                <li>
+                    <button class="btn btn-round">
+                        <a href="{% url 'basket:add' product.pk %}">Add to the basket</a>
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </div>
+{% endblock content %}

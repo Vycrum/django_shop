@@ -229,12 +229,29 @@ textarea::placeholder {
     width: 200px;
 }
 
-.product_image {
-    outline: 3px solid #380d02;
+.product_info {
+    position: relative;
 }
 
-.product_image:hover {
-    outline: none;
+.product_image {
+    float: left;
+}
+
+.product_image img {
+    max-width: 500px;
+    max-height: 500px;
+}
+
+.product_description {
+    float: left;
+}
+
+.product_info_list li {
+    /*color: #7f0b0b;*/
+    font-size: 18px;
+    line-height: 26px;
+    list-style-type: none;
+
 }
 
 .footer {

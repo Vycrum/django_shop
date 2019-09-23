@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.views.generic import ListView, TemplateView
+from django.views.generic import ListView, TemplateView, DetailView
 from django.shortcuts import get_object_or_404
 import os
 
@@ -11,12 +11,6 @@ from basketapp.models import Basket
 
 class HomePageView(TemplateView):
     template_name = 'mainapp/index.html'
-
-    # def get_context_data(self, *args, **kwargs):
-    #     context = super(HomePageView , self).get_context_data(*args, **kwargs)
-    #     user_login = os.getlogin()
-    #     context['user'] = user_login
-    #     return context
 
 
 class ContactsPageView(TemplateView):
@@ -40,27 +34,16 @@ class CategoryDetailView(ListView):
         category_id = self.kwargs.get('pk')
         user = self.request.user
     #
-    #     basket = []
-    #     if self.request.user.is_authenticated:
-    #         basket = Basket.objects.filter(user=user)
-    #         quantity = 0
-    #         total_price = 0
+    #    Basket functions are moved to 'context__processors' to work in global context.
     #
-    #         for item in basket:
-    #             quantity += item.quantity
-    #             total_price += item.quantity * item.price
-    #
-    #         basket = {
-    #             'quantity': quantity,
-    #             'total_price': total_price
-    #         }
-    #     print(basket)
-    #
-    #     context['basket'] = basket
         context['category'] = ProductCategory.objects.filter(id=category_id)[0]
         context['products'] = Product.objects.filter(category_id=category_id)
         return context
 
+
+class ProductDetailView(DetailView):
+    model = Product
+    template_name = 'mainapp/product.html'
 
 # Function-Based Views
 

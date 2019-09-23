@@ -8,10 +8,10 @@
     {% if basket %}
     <a href="{% url 'basket:view' %}" class="basket">
         <li>
-            Items: {{ basket.quantity }}
+            Items: {{ basket_quantity }}
         </li>
         <li>
-            Price: {{ basket.total_price }}
+            Price: {{ basket_total_price }} RUB
         </li>
     </a>
     {% endif %}
