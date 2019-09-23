@@ -1,28 +1,26 @@
 from django.template import RequestContext
 from django.conf import settings
 from basketapp.models import Basket
+from mainapp.models import ProductCategory
 
 
-def test(request):
-    return {'test_var': 'vycrum_666'}
+def get_categories(request):
+    return {'all_categories': ProductCategory.objects.all()}
 
 
 def get_basket(request):
     basket = []
     user = request.user
+    quantity = None
+    total_price = None
 
     if request.user.is_authenticated:
         basket = Basket.objects.filter(user=user)
-        quantity = 0
-        total_price = 0
+        quantity = sum(list(map(lambda item: item.quantity, basket)))
+        total_price = sum(list(map(lambda item: item.cost, basket)))
 
-        for item in basket:
-            quantity += item.quantity
-            total_price += item.cost
-
-        basket = {
-            'quantity': quantity,
-            'total_price': total_price
-        }
-
-    return {'basket': basket}
+    return {
+        'basket': basket,
+        'basket_quantity': quantity,
+        'basket_total_price': total_price
+    }
