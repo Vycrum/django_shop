@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+{% load static %}
+<html>
+
+<head>
+	<meta charset="utf-8">
+    <title>
+        {% block title %} Superadmin Lives Here {% endblock title %}
+    </title>
+    {% block css %}
+        <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+    {% endblock css %}
+</head>
+<body>
+	<div class="admin_container">
+        <h2>
+            Superadmin Lives Here
+        </h2>
+        {% block menu %}
+          <div class="admin_menu">
+            {% include 'adminapp/includes/inc_menu.html' %}
+          </div>
+        {% endblock menu %}
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+    {% block js %}
+    {% endblock js %}
+</body>
+</html>
