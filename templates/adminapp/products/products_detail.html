@@ -1,0 +1,39 @@
+{% extends 'adminapp/base.html' %}
+
+{% block title %}
+    {{ product.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="product-entry">
+        <h2>{{ product.name }}</h2>
+        <button>
+            <a href={% url 'superadmin:product_update' product.pk %}>Edit</a>
+        </button>
+        <button>
+            <a href={% url 'superadmin:product_delete' product.pk %}>Delete</a>
+        </button>
+        <br><br>
+        <img src="/media/{{ product.full_image }}">
+        <div class="product_description">
+            <h3>Product Information:</h3>
+            <ul class="product_info_list">
+                <li><b>Name: </b>{{ product.name }}</li>
+                <li><b>Category: </b>
+                    <a href="{% url 'superadmin:category_detail' product.category.pk %}">
+                        {{ product.category.name }}
+                    </a>
+                </li>
+                <li><b>Price: </b>{{ product.price }} RUB</li>
+                <li><b>Short Description: </b>{{ product.short_desc }}</li>
+                <li><b>Full Description: </b>{{ product.full_desc }}</li>
+                <li><b>Quantity: </b>{{ product.quantity }}</li>
+            </ul>
+        </div>
+    <a href="{% url 'adminapp:category_detail' product.category.pk %}"
+       class="btn btn-secondary btn-lg active btn-block"
+       role="button" aria-pressed="true">Return
+    </a>
+    <br>
+    </div>
+{% endblock content %}

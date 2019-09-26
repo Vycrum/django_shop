@@ -1,94 +1,157 @@
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from authapp.models import ShopUser
 from mainapp.models import Product, ProductCategory
-from django.shortcuts import get_object_or_404, render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import CreateView, UpdateView,  DeleteView
-from django.urls import reverse_lazy
+from django.urls import reverse, reverse_lazy
+from django.shortcuts import redirect
 
 
-class UsersView(ListView):
+class AdminMixin(UserPassesTestMixin):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+    def get_test_func(self):
+        return self.test_func
+
+    def dispatch(self, request, *args, **kwargs):
+        user_test_result = self.get_test_func()()
+        if not user_test_result:
+            return redirect('adminapp:forbidden')
+        return super().dispatch(request, *args, **kwargs)
+
+
+class ForbiddenView(TemplateView):
+    template_name = 'adminapp/forbidden.html'
+
+
+class AdminHomeView(LoginRequiredMixin, AdminMixin, TemplateView):
+    template_name = 'adminapp/base.html'
+
+
+# Users Views
+
+class UsersListView(LoginRequiredMixin, AdminMixin, ListView):
     model = ShopUser
     context_object_name = 'users'
-    template_name = 'adminapp/users.html'
+    template_name = 'adminapp/users/users_list.html'
+    login_url = 'authapp:login'
 
 
-class UsersDetailView(DetailView):
+class UsersDetailView(LoginRequiredMixin, AdminMixin, DetailView):
     model = ShopUser
     context_object_name = 'user'
-    template_name = 'adminapp/users_detail.html'
+    template_name = 'adminapp/users/users_detail.html'
+    login_url = 'authapp:login'
 
 
-class UsersCreateView(CreateView):
+class UsersCreateView(LoginRequiredMixin, AdminMixin, CreateView):
     model = ShopUser
     fields = '__all__'
-    template_name = 'adminapp/users_create.html'
+    template_name = 'adminapp/users/users_create.html'
+    login_url = 'authapp:login'
 
 
-class UsersUpdateView(UpdateView):
+class UsersUpdateView(LoginRequiredMixin, AdminMixin, UpdateView):
     model = ShopUser
     fields = '__all__'
     context_object_name = 'user'
-    template_name = 'adminapp/users_edit.html'
+    template_name = 'adminapp/users/users_edit.html'
+    login_url = 'authapp:login'
 
 
-class UsersDeleteView(DeleteView):
+class UsersDeleteView(LoginRequiredMixin, AdminMixin, DeleteView):
     model = ShopUser
     context_object_name = 'user'
-    template_name = 'adminapp/users_delete.html'
-    success_url = reverse_lazy('superadmin:users')
+    template_name = 'adminapp/users/users_delete.html'
+    success_url = reverse_lazy('superadmin:users_list')
+    login_url = 'authapp:login'
 
 
-def categories(request):
-    title = 'админка/категории'
+# Categories Views
 
-    categories_list = ProductCategory.objects.all()
-
-    content = {
-        'title': title,
-        'objects': categories_list
-    }
-
-    return render(request, 'adminapp/categories.html', content)
+class CategoryListView(LoginRequiredMixin, AdminMixin, ListView):
+    model = ProductCategory
+    context_object_name = 'categories'
+    template_name = 'adminapp/categories/category_list.html'
+    login_url = 'authapp:login'
 
 
-def category_create(request):
-    pass
+class CategoryDetailView(LoginRequiredMixin, AdminMixin, DetailView):
+    model = ProductCategory
+    context_object_name = 'category'
+    template_name = 'adminapp/categories/category_detail.html'
+    login_url = 'authapp:login'
+
+    def get_context_data(self, **kwargs):
+        context = super(CategoryDetailView, self).get_context_data(**kwargs)
+        category_pk = self.kwargs.get('pk')
+        context['products'] = Product.objects.filter(category=category_pk)
+        return context
 
 
-def category_update(request, pk):
-    pass
+class CategoryCreateView(LoginRequiredMixin, AdminMixin, CreateView):
+    model = ProductCategory
+    fields = '__all__'
+    template_name = 'adminapp/categories/category_create.html'
+    login_url = 'authapp:login'
 
 
-def category_delete(request, pk):
-    pass
+class CategoryUpdateView(LoginRequiredMixin, AdminMixin, UpdateView):
+    model = ProductCategory
+    fields = '__all__'
+    context_object_name = 'category'
+    template_name = 'adminapp/categories/category_edit.html'
+    login_url = 'authapp:login'
 
 
-def products(request, pk):
-    title = 'админка/продукт'
-
-    category = get_object_or_404(ProductCategory, pk=pk)
-    products_list = Product.objects.filter(category__pk=pk).order_by('name')
-
-    content = {
-        'title': title,
-        'category': category,
-        'objects': products_list,
-    }
-
-    return render(request, 'adminapp/products.html', content)
+class CategoryDeleteView(LoginRequiredMixin, AdminMixin, DeleteView):
+    model = ProductCategory
+    context_object_name = 'category'
+    template_name = 'adminapp/categories/category_delete.html'
+    success_url = reverse_lazy('superadmin:category_list')
+    login_url = 'authapp:login'
 
 
-def product_create(request, pk):
-    pass
+# Products Views
+
+class ProductsListView(LoginRequiredMixin, AdminMixin, ListView):
+    model = Product
+    context_object_name = 'products'
+    template_name = 'adminapp/products/products_list.html'
+    login_url = 'authapp:login'
 
 
-def product_read(request, pk):
-    pass
+class ProductsDetailView(LoginRequiredMixin, AdminMixin, DetailView):
+    model = Product
+    context_object_name = 'product'
+    template_name = 'adminapp/products/products_detail.html'
+    login_url = 'authapp:login'
 
 
-def product_update(request, pk):
-    pass
+class ProductsCreateView(LoginRequiredMixin, AdminMixin, CreateView):
+    model = Product
+    fields = '__all__'
+    template_name = 'adminapp/products/products_create.html'
+    login_url = 'authapp:login'
 
 
-def product_delete(request, pk):
-    pass
+class ProductsUpdateView(LoginRequiredMixin, AdminMixin, UpdateView):
+    model = Product
+    fields = '__all__'
+    context_object_name = 'product'
+    template_name = 'adminapp/products/products_edit.html'
+    login_url = 'authapp:login'
+
+
+class ProductsDeleteView(LoginRequiredMixin, AdminMixin, DeleteView):
+    model = Product
+    context_object_name = 'product'
+    template_name = 'adminapp/products/products_delete.html'
+    login_url = 'authapp:login'
+
+    def get_success_url(self):
+        product = Product.objects.filter(id=self.kwargs['pk'])[0]
+        category_pk = product.category.pk
+
+        return reverse_lazy('superadmin:category_detail', kwargs={'pk': category_pk})

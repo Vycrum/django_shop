@@ -5,6 +5,11 @@
             {{ user }}
         </a>
     </li>
+    {% if user.is_superuser %}
+    <li>
+        <a href="{% url 'adminapp:admin_home' %}">Admin</a>
+    </li>
+    {% endif %}
     {% if basket %}
     <a href="{% url 'basket:view' %}" class="basket">
         <li>

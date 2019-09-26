@@ -1,0 +1,38 @@
+{% extends 'adminapp/base.html' %}
+
+{% block title %}
+    Users
+{% endblock title %}
+
+{% block content %}
+    <div class="users_list">
+        <a href="{% url 'superadmin:user_create' %}"
+           class="btn btn-primary btn-lg active"
+           role="button" aria-pressed="true">Create New User
+        </a><br><br>
+        {% for user in users %}
+            <div class="card">
+                <div class="card-header">
+                <span class="font-weight-bold">
+                    <a href="{% url 'superadmin:users_detail' user.pk %}">{{ user }}</a>
+                </span> &middot;
+                    <span class="text-muted">
+                    {% if user.is_superuser %}
+                        Admin
+                    {% else %}
+                        User
+                    {% endif %}
+                </span>
+                </div>
+                <div class="card-body">
+                    User Info Here
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <a href="{% url 'superadmin:user_update' user.pk %}">Edit</a> |
+                    <a href="{% url 'superadmin:user_delete' user.pk %}">Delete</a>
+                </div>
+            </div>
+            <br/>
+        {% endfor %}
+    </div>
+{% endblock %}

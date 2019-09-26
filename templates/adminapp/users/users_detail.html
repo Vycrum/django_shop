@@ -1,7 +1,7 @@
 {% extends 'adminapp/base.html' %}
 
 {% block title %}
-{{ user }}
+    {{ user }}
 {% endblock title %}
 
 {% block content %}
@@ -53,5 +53,11 @@
             {{ user.last_login }}
         </div>
     </div>
+    <br>
+    <a href="{% url 'adminapp:users_list' %}"
+       class="btn btn-secondary btn-lg active btn-block"
+       role="button" aria-pressed="true">Return
+    </a>
+    <br>
     <div/>
     {% endblock content %}
