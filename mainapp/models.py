@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 
 class ProductCategory(models.Model):
@@ -11,6 +12,9 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('superadmin:category_detail', args=[str(self.id)])
 
 
 class Product(models.Model):
@@ -29,3 +33,6 @@ class Product(models.Model):
 
     def __str__(self):
         return f'{self.name} ({self.category.name})'
+
+    def get_absolute_url(self):
+        return reverse('superadmin:product_detail', args=[str(self.id)])

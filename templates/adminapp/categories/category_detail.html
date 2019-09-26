@@ -1,0 +1,35 @@
+{% extends 'adminapp/base.html' %}
+
+{% block title %}
+    {{ category.name }}
+{% endblock title %}
+
+{% block content %}
+    <div class="category_products">
+        <a href="{% url 'superadmin:product_create' %}"
+           class="btn btn-primary btn-lg active"
+           role="button" aria-pressed="true">Add New Product
+        </a><br><br>
+        {% for product in products %}
+            <div class="card">
+                <div class="card-header">
+                <span class="font-weight-bold">
+                    <a href="{% url 'superadmin:product_detail' product.pk %}">{{ product.name }}</a>
+                </span>
+                </div>
+                <div class="card-body">
+                    {{ product.short_desc }}
+                </div>
+                <div class="card-footer text-center text-muted">
+                    <a href="{% url 'superadmin:product_update' product.pk %}">Edit</a> |
+                    <a href="{% url 'superadmin:product_delete' product.pk %}">Delete</a>
+                </div>
+            </div>
+            <br/>
+        {% endfor %}
+    </div>
+    <a href="{% url 'adminapp:category_list' %}"
+       class="btn btn-secondary btn-lg active btn-block"
+       role="button" aria-pressed="true">Return
+    </a>
+{% endblock %}

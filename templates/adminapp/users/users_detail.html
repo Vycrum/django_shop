@@ -1,0 +1,63 @@
+{% extends 'adminapp/base.html' %}
+
+{% block title %}
+    {{ user }}
+{% endblock title %}
+
+{% block content %}
+<div class="user-entry">
+    <h2>{{ user }}</h2>
+    <div
+            class="user_record {% if not user.is_active %}not_active{% endif %}">
+        <img
+                src="/media/{{ user.avatar|default:'users_avatars/default.jpg' }}"
+                alt="{{ user.username }}">
+        <div class="user_role">
+            {% if user.is_superuser %}
+            Admin
+            {% else %}
+            User
+            {% endif %}
+            <button>
+                <a href={% url 'superadmin:user_update' user.pk %}>
+                Edit
+                </a>
+            </button>
+            <button>
+                <a href={% url 'superadmin:user_delete' user.pk %}>
+                Delete
+                </a>
+            </button>
+        </div>
+        <div class="user_name">
+            <p><strong>{{ user.username }}</strong></p>
+            <p>
+                {% if user.first_name %}
+                <b>{{ user.first_name|title }}</b>
+                {% if user.last_name %}
+            <p>{{ user.last_name|title }}</p>
+            {% endif %}
+            {% endif %}
+            </p>
+        </div>
+        <div class="user_age">
+            age:<br>
+            {{ user.age }} years old
+        </div>
+        <div class="user_email">
+            email:<br>
+            {{ user.email }}
+        </div>
+        <div class="user_lastlogin">
+            logged:<br>
+            {{ user.last_login }}
+        </div>
+    </div>
+    <br>
+    <a href="{% url 'adminapp:users_list' %}"
+       class="btn btn-secondary btn-lg active btn-block"
+       role="button" aria-pressed="true">Return
+    </a>
+    <br>
+    <div/>
+    {% endblock content %}
