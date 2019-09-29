@@ -23,7 +23,7 @@ class Product(models.Model):
         verbose_name_plural = 'Products'
 
     name = models.CharField(verbose_name='Product name', max_length=128)
-    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE)
+    category = models.ForeignKey(ProductCategory, on_delete=models.CASCADE, related_name='category')
     small_image = models.ImageField(verbose_name='Catalog image', upload_to='products_images', blank=True)
     full_image = models.ImageField(verbose_name='Detail image', upload_to='products_images', blank=True)
     short_desc = models.CharField(verbose_name='Short description', max_length=100, blank=True)

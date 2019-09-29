@@ -1,6 +1,3 @@
-from django.template import RequestContext
-from django.conf import settings
-from basketapp.models import Basket
 from mainapp.models import ProductCategory
 
 
@@ -10,12 +7,11 @@ def get_categories(request):
 
 def get_basket(request):
     basket = []
-    user = request.user
     quantity = None
     total_price = None
 
     if request.user.is_authenticated:
-        basket = Basket.objects.filter(user=user)
+        basket = request.user.basket.select_related('product__category').all()
         quantity = sum(list(map(lambda item: item.quantity, basket)))
         total_price = sum(list(map(lambda item: item.cost, basket)))
 

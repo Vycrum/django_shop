@@ -2,14 +2,19 @@ from django.core.management.base import BaseCommand
 from mainapp.models import ProductCategory, Product
 from django.contrib.auth.models import User
 from authapp.models import ShopUser
+from configparser import RawConfigParser
 
 import json, os
 
+
+CONFIG_PATH = 'conf'
 JSON_PATH = 'mainapp/json'
+
 
 def load_from_json(file_name):
     with open(os.path.join(JSON_PATH, file_name + '.json'), 'r') as infile:
         return json.load(infile)
+
 
 class Command(BaseCommand):
     def handle(self, *args, **options):
@@ -30,9 +35,12 @@ class Command(BaseCommand):
             new_product = Product(**product)
             new_product.save()
 
+        local_config_path = os.path.join(CONFIG_PATH, 'local.conf')
+        config = RawConfigParser()
+        config.read(local_config_path)
+
         super_user = ShopUser.objects.create_superuser(
-            'django',
-            'django@geekshop.local',
-            'geekbrains',
-            age=23
+            config.get('admin', 'USERNAME'),
+            config.get('admin', 'EMAIL'),
+            config.get('admin', 'PASSWORD')
         )
